@@ -11,19 +11,19 @@ describe('Hero Component Tests', () => {
 
   it('renders the subheading', () => {
     render(<Hero />);
-    const subheading = screen.queryByRole('heading', { level: 2 });
+    const subheading = screen.getByText(/You're on a mission to build exceptional tech teams/i);
     expect(subheading).toBeInTheDocument();
   });
 
   it('renders a Call-to-Action button', () => {
     render(<Hero />);
-    const ctaButton = screen.queryByRole('button');
+    const ctaButton = screen.queryByRole('button', { name: /Go now/i });
     expect(ctaButton).toBeInTheDocument();
   });
 
   it('renders the Hero visual', () => {
     render(<Hero />);
-    const heroVisual = screen.queryByRole('img');
+    const heroVisual = screen.getByTestId('hero-visual');
     expect(heroVisual).toBeInTheDocument();
   });
 });
