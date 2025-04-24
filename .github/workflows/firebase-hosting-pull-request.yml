@@ -21,6 +21,7 @@ jobs:
 
       - name: Run Vale
         run: vale .
+        working-directory: website
 
   test:
     name: Run Jest Tests
@@ -35,9 +36,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: website
 
       - name: Run tests
         run: npm test
+        working-directory: website
 
   build_and_preview:
     name: Build and Preview Firebase Hosting
@@ -46,7 +49,15 @@ jobs:
     needs: [validate_docs, test]
     steps:
       - uses: actions/checkout@v4
-      - run: npm run build
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: website
+
+      - name: Build project
+        run: npm run build
+        working-directory: website
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
